@@ -32,7 +32,6 @@ public class EventHandler2 : MonoBehaviour, ITrackableEventHandler
     {
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         mTrackableBehaviour.RegisterTrackableEventHandler(this);
-        print("awake eventHandler2");
     }
 
     private void OnDestroy()
@@ -42,7 +41,6 @@ public class EventHandler2 : MonoBehaviour, ITrackableEventHandler
 
     public void OnTrackableStateChanged(TrackableBehaviour.Status previousStatus, TrackableBehaviour.Status newStatus)
     {
-        print("TrackableStateChanged");
         // if tracking found
         foreach (TrackableBehaviour.Status trackedStatus in mTrackingFound)
         {
@@ -50,7 +48,6 @@ public class EventHandler2 : MonoBehaviour, ITrackableEventHandler
             {
                 if (OnTrackingFound != null)
                     OnTrackingFound();
-                print("mark2 found");
                 Main.mark2 = true;
                 
                 if (Main.mark1)
@@ -67,9 +64,13 @@ public class EventHandler2 : MonoBehaviour, ITrackableEventHandler
             {
                 if (OnTrackingLost != null)
                     OnTrackingLost();
-                print("mark2 lost");
                 Main.mark2 = false;
-                Main.animais[Main.animalIndex].SetActive(false);
+                print("perdeFoco2");
+                if (Main.animais.Length > 0)
+                {
+                    print("beoreSetFalse2");
+                    Main.animais[Main.animalIndex].SetActive(false);
+                }
                 if (Main.mark1 && Main.animalIndex > 0)
                 {
                     Main.animalIndex--;

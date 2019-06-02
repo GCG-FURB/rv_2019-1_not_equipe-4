@@ -9,12 +9,7 @@ public class EventHandler : MonoBehaviour, ITrackableEventHandler
 {
     public UnityAction OnTrackingFound;
     public UnityAction OnTrackingLost;
-    public static string globalVar = "global";
     private TrackableBehaviour mTrackableBehaviour = null;
-
-    public GameObject[] animais;
-    //public GameObject animalSelecionado;
-    public int animalIndex;
 
     private readonly List<TrackableBehaviour.Status> mTrackingFound = new List<TrackableBehaviour.Status>
     {
@@ -33,11 +28,7 @@ public class EventHandler : MonoBehaviour, ITrackableEventHandler
     private void Awake()
     {
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
-        mTrackableBehaviour.RegisterTrackableEventHandler(this);
-        print("awake eventHandler");
-        print(animais);
-
-        
+        mTrackableBehaviour.RegisterTrackableEventHandler(this);        
     }
 
     private void OnDestroy()
@@ -47,7 +38,6 @@ public class EventHandler : MonoBehaviour, ITrackableEventHandler
 
     public void OnTrackableStateChanged(TrackableBehaviour.Status previousStatus, TrackableBehaviour.Status newStatus)
     {
-        print("TrackableStateChanged");
         // if tracking found
         foreach (TrackableBehaviour.Status trackedStatus in mTrackingFound)
         {
@@ -56,6 +46,8 @@ public class EventHandler : MonoBehaviour, ITrackableEventHandler
                 if (OnTrackingFound != null)
                     OnTrackingFound();
                 Main.mark1 = true;
+                print("beforePlayVideo");
+                //Main.videoPlayer.Play();
                 if (Main.mark2)
                 {
                     Main.animais[Main.animalIndex].SetActive(true);
@@ -72,7 +64,13 @@ public class EventHandler : MonoBehaviour, ITrackableEventHandler
                     OnTrackingLost();
                 
                 Main.mark1 = false;
-                Main.animais[Main.animalIndex].SetActive(false);
+                print("perdeFoco1");
+                if (Main.animais.Length > 0)
+                {
+                    print("beoreSetFalse1");
+                    Main.animais[Main.animalIndex].SetActive(false);
+                }
+
                 if (Main.mark2 && Main.animalIndex < 9)
                 {
                     Main.animalIndex++;

@@ -5,7 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Animal1
-  - Animal2
+  - Text
+  - AudioAnimal
+  - VideoPlayer
+  - Traducao
+  - AnimalFalado
+  - AnimalLibras
+  - Historia
   layers:
   - Default
   - TransparentFX
